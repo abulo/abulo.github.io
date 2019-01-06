@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>Python DBUtils数据连接池与MySQL配合用法 | Abulo</title>
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta name="keywords" content="Python,MySQL,DBUtils">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python DBUtils数据连接池与MySQL配合用法">
+<meta property="og:url" content="http://abulo.github.io/2009/05/06/Python-DBUtils数据连接池与MySQL配合用法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-06T09:03:59.729Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python DBUtils数据连接池与MySQL配合用法">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://abulo.github.io/2009/05/06/Python-DBUtils数据连接池与MySQL配合用法/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/abulo" target="_blank">
+          <img class="img-circle img-rotate" src="https://www.gravatar.com/avatar/ec10d5d6b9a93caf62b7fb03105ff33e?s=128" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">星期五</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Chengdu, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/abulo" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/abulo_hoo" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/MySQL/">MySQL</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/影评/">影评</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBUtils/">DBUtils</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电影/">电影</a><span class="tag-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DBUtils/" style="font-size: 13px;">DBUtils</a> <a href="/tags/MySQL/" style="font-size: 13px;">MySQL</a> <a href="/tags/Python/" style="font-size: 13px;">Python</a> <a href="/tags/Redis/" style="font-size: 13px;">Redis</a> <a href="/tags/电影/" style="font-size: 14px;">电影</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/05/">五月 2009</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/03/">三月 2009</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2008/11/">十一月 2008</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2008/10/">十月 2008</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2008/03/">三月 2008</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Redis/">Redis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2009/05/14/Redis-conf-中文版/" class="title">Redis.conf 中文版</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2009-05-14T05:41:00.000Z" itemprop="datePublished">2009-05-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Python/">Python</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/Python/MySQL/">MySQL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2009/05/06/Python-DBUtils数据连接池与MySQL配合用法/" class="title">Python DBUtils数据连接池与MySQL配合用法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2009-05-06T08:53:00.000Z" itemprop="datePublished">2009-05-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/影评/">影评</a>
+              </p>
+              <p class="item-title">
+                <a href="/2009/03/20/昨天的影院才是天堂影院/" class="title">昨天的影院才是天堂影院</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2009-03-20T01:45:00.000Z" itemprop="datePublished">2009-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/影评/">影评</a>
+              </p>
+              <p class="item-title">
+                <a href="/2008/11/15/英雄和英雄/" class="title">英雄和英雄</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2008-11-14T16:44:00.000Z" itemprop="datePublished">2008-11-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/影评/">影评</a>
+              </p>
+              <p class="item-title">
+                <a href="/2008/10/21/The-Legend-of-1900/" class="title">The Legend of 1900</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2008-10-21T13:59:00.000Z" itemprop="datePublished">2008-10-21</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Python-DBUtils数据连接池与MySQL配合用法" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python DBUtils数据连接池与MySQL配合用法
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2009/05/06/Python-DBUtils数据连接池与MySQL配合用法/" class="article-date">
+	  <time datetime="2009-05-06T08:53:00.000Z" itemprop="datePublished">2009-05-06</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Python/">Python</a>►<a class="article-category-link" href="/categories/Python/MySQL/">MySQL</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/DBUtils/">DBUtils</a>, <a class="article-tag-link" href="/tags/MySQL/">MySQL</a>, <a class="article-tag-link" href="/tags/Python/">Python</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2009/05/06/Python-DBUtils数据连接池与MySQL配合用法/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">desc:数据库操作类</span><br><span class="line">@note:</span><br><span class="line">1、执行带参数的ＳＱＬ时，请先用sql语句指定需要输入的条件列表，然后再用tuple/list进行条件批配</span><br><span class="line">２、在格式ＳＱＬ中不需要使用引号指定数据类型，系统会根据输入参数自动识别</span><br><span class="line">３、在输入的值中不需要使用转意函数，系统会自动处理</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">import MySQLdb</span><br><span class="line">from MySQLdb.cursors import DictCursor</span><br><span class="line">from DBUtils.PooledDB import PooledDB</span><br><span class="line"></span><br><span class="line">import Config</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">Config是一些数据库的配置文件</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">class Mysql(object):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">        MYSQL数据库对象，负责产生数据库连接 , 此类中的连接采用连接池实现</span><br><span class="line">        获取连接对象：conn = Mysql.getConn()</span><br><span class="line">        释放连接对象;conn.close()或del conn</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    #连接池对象</span><br><span class="line">    __pool = None</span><br><span class="line">    def __init__(self):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        数据库构造函数，从连接池中取出连接，并生成操作游标</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">#        self._conn = MySQLdb.connect(host=Config.DBHOST , port=Config.DBPORT , user=Config.DBUSER , passwd=Config.DBPWD ,</span><br><span class="line">#                              db=Config.DBNAME,use_unicode=False,charset=Config.DBCHAR,cursorclass=DictCursor)</span><br><span class="line">        self._conn = Mysql.__getConn()</span><br><span class="line">        self._cursor = self._conn.cursor()</span><br><span class="line"></span><br><span class="line">    @staticmethod</span><br><span class="line">    def __getConn():</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        @summary: 静态方法，从连接池中取出连接</span><br><span class="line">        @return MySQLdb.connection</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if Mysql.__pool is None:</span><br><span class="line">            __pool = PooledDB(creator=MySQLdb, mincached=1 , maxcached=20 ,</span><br><span class="line">                              host=Config.DBHOST , port=Config.DBPORT , user=Config.DBUSER , passwd=Config.DBPWD ,</span><br><span class="line">                              db=Config.DBNAME,use_unicode=False,charset=Config.DBCHAR,cursorclass=DictCursor)</span><br><span class="line">        return __pool.connection()</span><br><span class="line"></span><br><span class="line">    def getAll(self,sql,param=None):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        @summary: 执行查询，并取出所有结果集</span><br><span class="line">        @param sql:查询ＳＱＬ，如果有查询条件，请只指定条件列表，并将条件值使用参数[param]传递进来</span><br><span class="line">        @param param: 可选参数，条件列表值（元组/列表）</span><br><span class="line">        @return: result list/boolean 查询到的结果集</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if param is None:</span><br><span class="line">            count = self._cursor.execute(sql)</span><br><span class="line">        else:</span><br><span class="line">            count = self._cursor.execute(sql,param)</span><br><span class="line">        if count&gt;0:</span><br><span class="line">            result = self._cursor.fetchall()</span><br><span class="line">        else:</span><br><span class="line">            result = False</span><br><span class="line">        return result</span><br><span class="line"></span><br><span class="line">    def getOne(self,sql,param=None):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        @summary: 执行查询，并取出第一条</span><br><span class="line">        @param sql:查询ＳＱＬ，如果有查询条件，请只指定条件列表，并将条件值使用参数[param]传递进来</span><br><span class="line">        @param param: 可选参数，条件列表值（元组/列表）</span><br><span class="line">        @return: result list/boolean 查询到的结果集</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if param is None:</span><br><span class="line">            count = self._cursor.execute(sql)</span><br><span class="line">        else:</span><br><span class="line">            count = self._cursor.execute(sql,param)</span><br><span class="line">        if count&gt;0:</span><br><span class="line">            result = self._cursor.fetchone()</span><br><span class="line">        else:</span><br><span class="line">            result = False</span><br><span class="line">        return result</span><br><span class="line"></span><br><span class="line">    def getMany(self,sql,num,param=None):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        @summary: 执行查询，并取出num条结果</span><br><span class="line">        @param sql:查询ＳＱＬ，如果有查询条件，请只指定条件列表，并将条件值使用参数[param]传递进来</span><br><span class="line">        @param num:取得的结果条数</span><br><span class="line">        @param param: 可选参数，条件列表值（元组/列表）</span><br><span class="line">        @return: result list/boolean 查询到的结果集</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if param is None:</span><br><span class="line">            count = self._cursor.execute(sql)</span><br><span class="line">        else:</span><br><span class="line">            count = self._cursor.execute(sql,param)</span><br><span class="line">        if count&gt;0:</span><br><span class="line">            result = self._cursor.fetchmany(num)</span><br><span class="line">        else:</span><br><span class="line">            result = False</span><br><span class="line">        return result</span><br><span class="line"></span><br><span class="line">    def insertOne(self,sql,value):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        @summary: 向数据表插入一条记录</span><br><span class="line">        @param sql:要插入的ＳＱＬ格式</span><br><span class="line">        @param value:要插入的记录数据tuple/list</span><br><span class="line">        @return: insertId 受影响的行数</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        self._cursor.execute(sql,value)</span><br><span class="line">        return self.__getInsertId()</span><br><span class="line"></span><br><span class="line">    def insertMany(self,sql,values):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        @summary: 向数据表插入多条记录</span><br><span class="line">        @param sql:要插入的ＳＱＬ格式</span><br><span class="line">        @param values:要插入的记录数据tuple(tuple)/list[list]</span><br><span class="line">        @return: count 受影响的行数</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        count = self._cursor.executemany(sql,values)</span><br><span class="line">        return count</span><br><span class="line"></span><br><span class="line">    def __getInsertId(self):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        获取当前连接最后一次插入操作生成的id,如果没有则为０</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        self._cursor.execute(&quot;SELECT @@IDENTITY AS id&quot;)</span><br><span class="line">        result = self._cursor.fetchall()</span><br><span class="line">        return result[0][&apos;id&apos;]</span><br><span class="line"></span><br><span class="line">    def __query(self,sql,param=None):</span><br><span class="line">        if param is None:</span><br><span class="line">            count = self._cursor.execute(sql)</span><br><span class="line">        else:</span><br><span class="line">            count = self._cursor.execute(sql,param)</span><br><span class="line">        return count</span><br><span class="line"></span><br><span class="line">    def update(self,sql,param=None):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        @summary: 更新数据表记录</span><br><span class="line">        @param sql: ＳＱＬ格式及条件，使用(%s,%s)</span><br><span class="line">        @param param: 要更新的  值 tuple/list</span><br><span class="line">        @return: count 受影响的行数</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        return self.__query(sql,param)</span><br><span class="line"></span><br><span class="line">    def delete(self,sql,param=None):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        @summary: 删除数据表记录</span><br><span class="line">        @param sql: ＳＱＬ格式及条件，使用(%s,%s)</span><br><span class="line">        @param param: 要删除的条件 值 tuple/list</span><br><span class="line">        @return: count 受影响的行数</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        return self.__query(sql,param)</span><br><span class="line"></span><br><span class="line">    def begin(self):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        @summary: 开启事务</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        self._conn.autocommit(0)</span><br><span class="line"></span><br><span class="line">    def end(self,option=&apos;commit&apos;):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        @summary: 结束事务</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if option==&apos;commit&apos;:</span><br><span class="line">            self._conn.commit()</span><br><span class="line">        else:</span><br><span class="line">            self._conn.rollback()</span><br><span class="line"></span><br><span class="line">    def dispose(self,isEnd=1):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        @summary: 释放连接池资源</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if isEnd==1:</span><br><span class="line">            self.end(&apos;commit&apos;)</span><br><span class="line">        else:</span><br><span class="line">            self.end(&apos;rollback&apos;);</span><br><span class="line">        self._cursor.close()</span><br><span class="line">        self._conn.close()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://abulo.github.io/2009/05/06/Python-DBUtils数据连接池与MySQL配合用法/" title="Python DBUtils数据连接池与MySQL配合用法" target="_blank" rel="external">http://abulo.github.io/2009/05/06/Python-DBUtils数据连接池与MySQL配合用法/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/abulo" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://www.gravatar.com/avatar/ec10d5d6b9a93caf62b7fb03105ff33e?s=128" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/abulo" target="_blank"><span class="text-dark">星期五</span><small class="ml-1x">Developer</small></a></h3>
+        <div>喜欢新事物,喜欢Codeing。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2009/05/14/Redis-conf-中文版/" title="Redis.conf 中文版"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2009/03/20/昨天的影院才是天堂影院/" title="昨天的影院才是天堂影院"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/abulo" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/abulo_hoo" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://abulo.github.io/2009/05/06/Python-DBUtils数据连接池与MySQL配合用法/';
+        
+        this.page.identifier = 'Python-DBUtils数据连接池与MySQL配合用法';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'abulo' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>
