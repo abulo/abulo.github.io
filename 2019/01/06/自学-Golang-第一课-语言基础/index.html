@@ -25,7 +25,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Go标识符  标识符是用来干什么的? 标识符是用来命名变量,类型等内容,标识符由字母(A-Z 或者 a-z),数字(0-9),下划线组成,特别需要注意的是第一个必须是字母或者下划线,标识符不允许使用系统内置的关键字  Go关键字     break default func interface select     case defer go map struct   chan else got">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-06T12:07:29.942Z">
+<meta property="og:updated_time" content="2019-01-06T12:33:06.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自学 Golang 第一课(语言基础)">
 <meta name="twitter:description" content="Go标识符  标识符是用来干什么的? 标识符是用来命名变量,类型等内容,标识符由字母(A-Z 或者 a-z),数字(0-9),下划线组成,特别需要注意的是第一个必须是字母或者下划线,标识符不允许使用系统内置的关键字  Go关键字     break default func interface select     case defer go map struct   chan else got">
@@ -365,7 +365,7 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/01/06/自学-Golang-第一课-语言基础/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 162(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 374(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
@@ -436,7 +436,7 @@
 <td style="text-align:left">bool</td>
 <td style="text-align:left">delete</td>
 <td style="text-align:left">int16</td>
-<td style="text-align:left">Panic</td>
+<td style="text-align:left">panic</td>
 <td style="text-align:left">uint</td>
 </tr>
 <tr>
@@ -482,6 +482,11 @@
 </tr>
 </tbody>
 </table>
+<p><strong>常量和变量</strong></p>
+<p>常量使用 <code>const</code> 声明,变量使用 <code>var</code> 声明,也可以使用快捷键变量声明,Go可以根据变量的内容自动判断变量类型.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const limit = 512	//常量,其类型兼容任何数字</span><br><span class="line">const top uint16 = 1421	//常量,类型:uint16</span><br><span class="line">start := -19	//变量,类型判断int</span><br><span class="line">end := int64(9876543210)	//变量,类型int64</span><br><span class="line">var i int	//变量,类型int,默认值 0</span><br><span class="line">var debug = false //变量,类型bool</span><br><span class="line">checkResults := true //变量,类型bool</span><br><span class="line">j := 1.5 //变量,类型float64</span><br><span class="line">s := &quot;string&quot; //变量,类型string</span><br></pre></td></tr></table></figure>
+<p>对于整型字面量 Go 推断为 int,对于浮点型字面量 Go 推断为 float64,对于复数型字面量 Go 推断为 complex128 </p>
+<p>变量 i 未初始化,Go 会将 0 赋值给该变量,<br>如果该变量声明的是一个未初始化的字符串,Go会将空字符赋值给该变量</p>
 
       
     </div>
