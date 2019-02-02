@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://abulo.github.io/"/>
-  <updated>2019-01-29T01:34:47.097Z</updated>
+  <updated>2019-01-06T13:08:47.030Z</updated>
   <id>http://abulo.github.io/</id>
   
   <author>
@@ -15,28 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>test</title>
-    <link href="http://abulo.github.io/2019/01/29/test/"/>
-    <id>http://abulo.github.io/2019/01/29/test/</id>
-    <published>2019-01-29T01:34:45.000Z</published>
-    <updated>2019-01-29T01:34:47.097Z</updated>
-    
-    <content type="html"><![CDATA[<p>asdasd</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;asdasd&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>自学 Golang 第1课(语言基础)</title>
