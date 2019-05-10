@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>Golang 结构体 | Abulo</title>
+  <meta name="description" content="Golang 结构体前言 Golang 中用来表示单一的数据类型可以使用 变量声明的方式 比如：123var Number intvar Married boolvar Name string 同一数据类型的集合可以使用下面的变量声明方式 比如：123var Infor map[string]stringvar Names []stringvar Number [10]int 如果需要表示不同的数">
+<meta name="keywords" content="Golang 结构体">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang 结构体">
+<meta property="og:url" content="http://abulo.github.io/2019/05/10/Golang-结构体/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Golang 结构体前言 Golang 中用来表示单一的数据类型可以使用 变量声明的方式 比如：123var Number intvar Married boolvar Name string 同一数据类型的集合可以使用下面的变量声明方式 比如：123var Infor map[string]stringvar Names []stringvar Number [10]int 如果需要表示不同的数">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-10T08:51:16.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Golang 结构体">
+<meta name="twitter:description" content="Golang 结构体前言 Golang 中用来表示单一的数据类型可以使用 变量声明的方式 比如：123var Number intvar Married boolvar Name string 同一数据类型的集合可以使用下面的变量声明方式 比如：123var Infor map[string]stringvar Names []stringvar Number [10]int 如果需要表示不同的数">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://abulo.github.io/2019/05/10/Golang-结构体/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/abulo" target="_blank">
+          <img class="img-circle img-rotate" src="https://www.gravatar.com/avatar/ec10d5d6b9a93caf62b7fb03105ff33e?s=128" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">星期五</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Chengdu, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/abulo" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/abulo_hoo" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/MySQL/">MySQL</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/">golang</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/影评/">影评</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBUtils/">DBUtils</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang/">Golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang-结构体/">Golang 结构体</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/函数/">函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础知识/">基础知识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境搭建/">环境搭建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电影/">电影</a><span class="tag-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DBUtils/" style="font-size: 13px;">DBUtils</a> <a href="/tags/Golang/" style="font-size: 13px;">Golang</a> <a href="/tags/Golang-结构体/" style="font-size: 13px;">Golang 结构体</a> <a href="/tags/MySQL/" style="font-size: 13px;">MySQL</a> <a href="/tags/Python/" style="font-size: 13px;">Python</a> <a href="/tags/Redis/" style="font-size: 13px;">Redis</a> <a href="/tags/函数/" style="font-size: 13px;">函数</a> <a href="/tags/基础知识/" style="font-size: 13px;">基础知识</a> <a href="/tags/环境搭建/" style="font-size: 13px;">环境搭建</a> <a href="/tags/电影/" style="font-size: 14px;">电影</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/05/">五月 2009</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/03/">三月 2009</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2008/11/">十一月 2008</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2008/10/">十月 2008</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2008/03/">三月 2008</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/golang/">golang</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/10/Golang-结构体/" class="title">Golang 结构体</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-10T08:50:00.000Z" itemprop="datePublished">2019-05-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/golang/">golang</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/06/Golang-函数/" class="title">Golang 函数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-06T01:27:00.000Z" itemprop="datePublished">2019-05-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Golang/">Golang</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/05/Golang-基础知识/" class="title">Golang 基础知识</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-05T04:55:00.000Z" itemprop="datePublished">2019-05-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Golang/">Golang</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/05/Go-语言环境的搭建/" class="title">Golang 语言环境的搭建</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-05T03:20:00.000Z" itemprop="datePublished">2019-05-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/杂谈/">杂谈</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/01/06/新年计划/" class="title">新年计划</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-01-06T11:30:00.000Z" itemprop="datePublished">2019-01-06</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Golang-结构体" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Golang 结构体
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/05/10/Golang-结构体/" class="article-date">
+	  <time datetime="2019-05-10T08:50:00.000Z" itemprop="datePublished">2019-05-10</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/golang/">golang</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Golang-结构体/">Golang 结构体</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/05/10/Golang-结构体/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.7k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="Golang-结构体"><a href="#Golang-结构体" class="headerlink" title="Golang 结构体"></a>Golang 结构体</h2><p><strong>前言</strong></p>
+<p>Golang 中用来表示单一的数据类型可以使用 变量声明的方式</p>
+<p>比如：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Number <span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> Married <span class="keyword">bool</span></span><br><span class="line"><span class="keyword">var</span> Name <span class="keyword">string</span></span><br></pre></td></tr></table></figure></p>
+<p>同一数据类型的集合可以使用下面的变量声明方式</p>
+<p>比如：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Infor <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line"><span class="keyword">var</span> Names []<span class="keyword">string</span></span><br><span class="line"><span class="keyword">var</span> Number [<span class="number">10</span>]<span class="keyword">int</span></span><br></pre></td></tr></table></figure></p>
+<p>如果需要表示不同的数据类型的集合集需要使用<code>结构体</code></p>
+<p><strong>结构体可以用来表示不同的数据类型的集合, 同时可以表示用户自定义类型。</strong></p>
+<p>定义及声明</p>
+<ul>
+<li>按顺序初始化</li>
+<li>按任意顺序初始化</li>
+<li>字段赋值</li>
+<li>new 函数分配指针</li>
+</ul>
+<p>标签</p>
+<ul>
+<li>字段访问</li>
+<li>方法：值传递和指针传递</li>
+<li>函数和方法的区别</li>
+<li>组合：内嵌结构体、内嵌匿名成员</li>
+<li>格式化显示结构体</li>
+</ul>
+<h3 id="1-定义及声明"><a href="#1-定义及声明" class="headerlink" title="1.定义及声明"></a>1.定义及声明</h3><p><code>type</code> 和 <code>struct</code> 关键字构成结构体的声明。<br>在 Golang 中， 结构体可以当做是一种<strong><code>数据类型</code></strong>。<br>所以可以这样这样操作:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Name <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> Infor Name</span><br></pre></td></tr></table></figure></p>
+<p>另外，结构体在 golang 中的作用又可以当做类,所以又存在方法<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Name <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(n Name)</span> <span class="title">ResponseNumber</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用结构体方法是使用 点号<code>.</code><br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> name Name</span><br><span class="line">    name.ResponseNumber()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>声明示例：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Information <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name    <span class="keyword">string</span></span><br><span class="line">    Age     <span class="keyword">int</span></span><br><span class="line">    School  <span class="keyword">string</span></span><br><span class="line">    Married <span class="keyword">bool</span></span><br><span class="line">    Habits  []<span class="keyword">string</span></span><br><span class="line">    Infor   <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">exampleInformationDeclare</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// one</span></span><br><span class="line">    <span class="keyword">var</span> (</span><br><span class="line">        exampleInformationOne Information</span><br><span class="line">        Infor                 <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line">    )</span><br><span class="line">    Infor = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>)</span><br><span class="line">    Infor[<span class="string">"key"</span>] = <span class="string">"hello-world"</span></span><br><span class="line">    exampleInformationOne = Information&#123;</span><br><span class="line">        <span class="string">"abulo"</span>, <span class="number">18</span>, <span class="string">"shanghaiUniversity"</span>, <span class="literal">true</span>,</span><br><span class="line">        []<span class="keyword">string</span>&#123;<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>&#125;, Infor,</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(exampleInformationOne, exampleInformationOne.Name)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// two</span></span><br><span class="line">    <span class="keyword">var</span> exampleInformationTwo Information</span><br><span class="line">    exampleInformationTwo.Name = <span class="string">"golang"</span></span><br><span class="line">    exampleInformationTwo.School = <span class="string">"Google"</span></span><br><span class="line">    exampleInformationTwo.Age = <span class="number">10</span></span><br><span class="line">    exampleInformationTwo.Infor = Infor</span><br><span class="line"></span><br><span class="line">    fmt.Println(exampleInformationTwo, exampleInformationTwo.Married)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// three</span></span><br><span class="line">    <span class="keyword">var</span> exampleInformationThree Information</span><br><span class="line">    exampleInformationThree = Information&#123;</span><br><span class="line">        Name:    <span class="string">"Python"</span>,</span><br><span class="line">        School:  <span class="string">"Gudio school"</span>,</span><br><span class="line">        Age:     <span class="number">18</span>,</span><br><span class="line">        Habits:  []<span class="keyword">string</span>&#123;<span class="string">"1"</span>, <span class="string">"2"</span>&#125;,</span><br><span class="line">        Infor:   Infor,</span><br><span class="line">        Married: <span class="literal">true</span>,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Println(exampleInformationThree, exampleInformationThree.School)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// four</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> exampleInformationFour *Information</span><br><span class="line">    exampleInformationFour = <span class="built_in">new</span>(Information)</span><br><span class="line">    exampleInformationFour.Name = <span class="string">"Java"</span></span><br><span class="line"></span><br><span class="line">    fmt.Println(exampleInformationFour, exampleInformationFour.School)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    exampleInformationDeclare()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">&#123;abulo <span class="number">18</span> shanghaiUniversity <span class="literal">true</span> [<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>] <span class="keyword">map</span>[key:hello-world]&#125; abulo</span><br><span class="line">&#123;golang <span class="number">10</span> Google <span class="literal">false</span> [] <span class="keyword">map</span>[key:hello-world]&#125; <span class="literal">false</span></span><br><span class="line">&#123;Python <span class="number">18</span> Gudio school <span class="literal">true</span> [<span class="number">1</span> <span class="number">2</span>] <span class="keyword">map</span>[key:hello-world]&#125; Gudio school</span><br><span class="line">&amp;&#123;Java <span class="number">0</span>  <span class="literal">false</span> [] <span class="keyword">map</span>[]&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-标签"><a href="#2-标签" class="headerlink" title="2.标签"></a>2.标签</h3><p>带标签的结构体的定义，在转换为json格式的数据的时候会自动将对应的字段转换为标签中的字段:</p>
+<p>比如: <code>Name</code> 转换成 <code>name</code> 字段</p>
+<p><strong>标签字段不能在编程中实际使用</strong></p>
+<p>比如：可以这样: <code>InformationWithLabel.Name</code></p>
+<p>不可以这样：<code>InformationWithLabel.name</code></p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> InformationWithLabel <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span> <span class="string">`json:"name"`</span></span><br><span class="line">    Age  <span class="keyword">int</span>    <span class="string">`json:"age"`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-字段的访问"><a href="#3-字段的访问" class="headerlink" title="3. 字段的访问"></a>3. 字段的访问</h3><p>结构体内的是一系列相关字段的集合。可以使用点号<code>.</code>获取结构体的字段。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> InformationWithLabel <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span> <span class="string">`json:"name"`</span></span><br><span class="line">    Age  <span class="keyword">int</span>    <span class="string">`json:"age"`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">exampleInformationWithLabelFiled</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> example InformationWithLabel</span><br><span class="line">    example = InformationWithLabel&#123;</span><br><span class="line">        Name: <span class="string">"abulo"</span>,</span><br><span class="line">        Age:  <span class="number">18</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(example.Name, example.Age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">abulo <span class="number">18</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-方法"><a href="#4-方法" class="headerlink" title="4. 方法"></a>4. 方法</h3><p>Golang 中结构体相当于面向对象中的类,所以存在方法。<br>方法根据传入的参数的不同，<br>又分为：<code>值传递</code> 和 <code>指针传递</code>。<br>两者的效果就是：值传递不可改变值，指针传递可以改变值。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Response <span class="keyword">struct</span> &#123;</span><br><span class="line">    Code    <span class="keyword">int</span></span><br><span class="line">    Result  []<span class="keyword">byte</span></span><br><span class="line">    Headers <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r Response)</span> <span class="title">GetAttrCode</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> r.Code</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r Response)</span> <span class="title">GetAttrResult</span><span class="params">()</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> r.Result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r Response)</span> <span class="title">GetAttrHeader</span><span class="params">()</span> <span class="title">map</span>[<span class="title">string</span>]<span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> r.Headers</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Response)</span> <span class="title">SetCode</span><span class="params">(code <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    r.Code = code</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Response)</span> <span class="title">SetHeaders</span><span class="params">(key, value <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    r.Headers[key] = value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">exampleResponse</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> (</span><br><span class="line">        response Response</span><br><span class="line">        headers  <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line">    )</span><br><span class="line">    headers = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>)</span><br><span class="line">    headers[<span class="string">"Server"</span>] = <span class="string">"GitHub.com"</span></span><br><span class="line">    headers[<span class="string">"Status"</span>] = <span class="string">"Ok"</span></span><br><span class="line">    response.Headers = headers</span><br><span class="line">    response.Code = <span class="number">200</span></span><br><span class="line">    response.Result = []<span class="keyword">byte</span>(<span class="string">"hello world"</span>)</span><br><span class="line"></span><br><span class="line">    fmt.Println(response.GetAttrCode())</span><br><span class="line">    fmt.Println(response.GetAttrHeader())</span><br><span class="line">    fmt.Println(response.GetAttrResult())</span><br><span class="line"></span><br><span class="line">    response.SetCode(<span class="number">404</span>)</span><br><span class="line">    fmt.Println(response)</span><br><span class="line"></span><br><span class="line">    response.SetHeaders(<span class="string">"Status"</span>, <span class="string">"failed"</span>)</span><br><span class="line">    fmt.Println(response)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    exampleResponse()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"></span><br><span class="line"><span class="number">200</span></span><br><span class="line"><span class="keyword">map</span>[Server:GitHub.com Status:Ok]</span><br><span class="line">[<span class="number">104</span> <span class="number">101</span> <span class="number">108</span> <span class="number">108</span> <span class="number">111</span> <span class="number">32</span> <span class="number">119</span> <span class="number">111</span> <span class="number">114</span> <span class="number">108</span> <span class="number">100</span>]</span><br><span class="line">&#123;<span class="number">404</span> [<span class="number">104</span> <span class="number">101</span> <span class="number">108</span> <span class="number">108</span> <span class="number">111</span> <span class="number">32</span> <span class="number">119</span> <span class="number">111</span> <span class="number">114</span> <span class="number">108</span> <span class="number">100</span>] <span class="keyword">map</span>[Server:GitHub.com Status:Ok]&#125;</span><br><span class="line">&#123;<span class="number">404</span> [<span class="number">104</span> <span class="number">101</span> <span class="number">108</span> <span class="number">108</span> <span class="number">111</span> <span class="number">32</span> <span class="number">119</span> <span class="number">111</span> <span class="number">114</span> <span class="number">108</span> <span class="number">100</span>] <span class="keyword">map</span>[Status:failed Server:GitHub.com]&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>可以看出：</strong></p>
+<ul>
+<li>结构体的方法如何定义</li>
+<li>值传递的适用于取值</li>
+<li>指针传递适用于更改字段的值<br>同时 方法和普通的函数的定义又有些许的不同。</li>
+</ul>
+<h3 id="5-函数和方法的区别"><a href="#5-函数和方法的区别" class="headerlink" title="5. 函数和方法的区别"></a>5. 函数和方法的区别</h3><p>Golang 中函数和方法存在区别。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NormalFunc</span><span class="params">(arg <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> arg + <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Response)</span> <span class="title">SetCode</span><span class="params">(code <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    r.Code = code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Go 方法是作用在接收者（receiver）上的一个函数。接收者可以是几乎任何类型。</p>
+<p>但一般选择 <code>结构体</code> 作为接收者</p>
+<h3 id="6-组合"><a href="#6-组合" class="headerlink" title="6. 组合"></a>6. 组合</h3><p><strong>匿名字段</strong><br>在 <code>Golang</code> 中可以通过结构体的组合实现类的继承。</p>
+<p>即：将一个结构体A当成另一个结构体B的匿名字段，则 这个结构体B自动拥有A的所有字段和方法。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Response <span class="keyword">struct</span> &#123;</span><br><span class="line">    Code    <span class="keyword">int</span></span><br><span class="line">    Result  []<span class="keyword">byte</span></span><br><span class="line">    Headers <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r Response)</span> <span class="title">GetAttrCode</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> r.Code</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r Response)</span> <span class="title">GetAttrResult</span><span class="params">()</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> r.Result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r Response)</span> <span class="title">GetAttrHeader</span><span class="params">()</span> <span class="title">map</span>[<span class="title">string</span>]<span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> r.Headers</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Response)</span> <span class="title">SetCode</span><span class="params">(code <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    r.Code = code</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Response)</span> <span class="title">SetHeaders</span><span class="params">(key, value <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    r.Headers[key] = value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Requests <span class="keyword">struct</span> &#123;</span><br><span class="line">    Url    <span class="keyword">string</span></span><br><span class="line">    Params <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> CollectionRequests <span class="keyword">struct</span> &#123;</span><br><span class="line">    CollectionNumber <span class="keyword">int</span></span><br><span class="line">    Requests</span><br><span class="line">    Response</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">exampleCollectionRequests</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> collectionRequests CollectionRequests</span><br><span class="line">    collectionRequests.CollectionNumber = <span class="number">10</span></span><br><span class="line">    collectionRequests.Url = <span class="string">"https://www.example.com"</span></span><br><span class="line">    collectionRequests.Params = <span class="string">"name"</span></span><br><span class="line">    collectionRequests.Code = <span class="number">201</span></span><br><span class="line">    collectionRequests.Result = []<span class="keyword">byte</span>(<span class="string">"hello Golang"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> headers <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line">    headers = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>)</span><br><span class="line">    headers[<span class="string">"status"</span>] = <span class="string">"Good"</span></span><br><span class="line">    collectionRequests.Headers = headers</span><br><span class="line">    fmt.Println(collectionRequests)</span><br><span class="line"></span><br><span class="line">    fmt.Println(collectionRequests.GetAttrCode())</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    exampleCollectionRequests()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"></span><br><span class="line">&#123;<span class="number">10</span> &#123;https:<span class="comment">//www.example.com name&#125; &#123;201 [104 101 108 108 111 32 71 111 108 97 110 103] map[status:Good]&#125;&#125;</span></span><br><span class="line"><span class="number">201</span></span><br></pre></td></tr></table></figure>
+<p>上文CollectionRequests 拥有两个匿名字段Requests、Response ，则自动拥有这个两个结构体的字段和方法</p>
+<p><strong>内嵌结构体</strong><br>这个组合的形式会遇到两个问题：</p>
+<ul>
+<li>字段相同怎么办？即结构体A 有字段 a, 结构体 B 也有字段 a。怎么处理？</li>
+<li>方法相同怎么办？即结构体A 有方法 methodOne, 结构体 B 也有方法 methodOne。怎么处理？<br>应该尽量避免命名冲突。同时可以使用多个点号的方法访问字段。方法则优先使用结构体B 的。</li>
+</ul>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> OtherRequests <span class="keyword">struct</span> &#123;</span><br><span class="line">    Request Requests</span><br><span class="line">    Resp    Response</span><br><span class="line">    Code    <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o OtherRequests)</span> <span class="title">GetAttrCode</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(fmt.Sprintf(<span class="string">"Outer Code = %d"</span>, o.Code))</span><br><span class="line">    fmt.Println(fmt.Sprintf(<span class="string">"inner Code = %d"</span>, o.Resp.Code))</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">exampleOtherRequests</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> other OtherRequests</span><br><span class="line">    other.Code = <span class="number">201</span></span><br><span class="line">    other.Resp.Code = <span class="number">202</span></span><br><span class="line">    fmt.Println(other)</span><br><span class="line">    other.GetAttrCode()</span><br><span class="line">    fmt.Println(other.Resp.GetAttrCode())</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    exampleOtherRequests()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">&#123;&#123; &#125; &#123;<span class="number">202</span> [] <span class="keyword">map</span>[]&#125; <span class="number">201</span>&#125;</span><br><span class="line">Outer Code = <span class="number">201</span></span><br><span class="line">inner Code = <span class="number">202</span></span><br><span class="line"><span class="number">202</span></span><br></pre></td></tr></table></figure>
+<p>可以看出通过组合结构体的方式，可以实现类中的继承和多态。</p>
+<h3 id="7-格式化显示结构体"><a href="#7-格式化显示结构体" class="headerlink" title="7. 格式化显示结构体"></a>7. 格式化显示结构体</h3><p>Golang 中只需要实现一个名为 String 的方法即可格式化显示结构体</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> OtherRequests <span class="keyword">struct</span> &#123;</span><br><span class="line">    Request Requests</span><br><span class="line">    Resp    Response</span><br><span class="line">    Code    <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o OtherRequests)</span> <span class="title">String</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">"Request = %v , Response = %v , Code = %d"</span>, o.Request, o.Resp, o.Code)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">exampleOtherRequests</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> other OtherRequests</span><br><span class="line">    other.Code = <span class="number">201</span></span><br><span class="line">    other.Resp.Code = <span class="number">202</span></span><br><span class="line">    fmt.Println(other)</span><br><span class="line">    other.GetAttrCode()</span><br><span class="line">    fmt.Println(other.Resp.GetAttrCode())</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    exampleOtherRequests()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">Request = &#123; &#125; , Response = &#123;<span class="number">202</span> [] <span class="keyword">map</span>[]&#125; , Code = <span class="number">201</span></span><br><span class="line">Outer Code = <span class="number">201</span></span><br><span class="line">inner Code = <span class="number">202</span></span><br><span class="line"><span class="number">202</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://abulo.github.io/2019/05/10/Golang-结构体/" title="Golang 结构体" target="_blank" rel="external">http://abulo.github.io/2019/05/10/Golang-结构体/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/abulo" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://www.gravatar.com/avatar/ec10d5d6b9a93caf62b7fb03105ff33e?s=128" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/abulo" target="_blank"><span class="text-dark">星期五</span><small class="ml-1x">Developer</small></a></h3>
+        <div>喜欢新事物,喜欢Codeing。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/05/06/Golang-函数/" title="Golang 函数"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/abulo" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/abulo_hoo" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://abulo.github.io/2019/05/10/Golang-结构体/';
+        
+        this.page.identifier = 'Golang-结构体';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'abulo' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>
