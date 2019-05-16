@@ -17,21 +17,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>昨天的影院才是天堂影院 | Abulo</title>
-  <meta name="description" content="这是一场关于梦想的电影往事。    二战时期的意大利西西里岛，既流传着一段美丽传说，也孕育着这么一个孩子的梦想：关于理想，关于友情，关于爱情，关于亲情。 电影梦    这个梦想是多多的，也是阿尔夫莱多的，更是朱塞佩·托纳托雷的。我不敢妄称多多就是朱塞佩·托纳托雷童年的幻像，但我知道朱塞佩·托纳托雷肯定也曾做过多多类似的梦——关于电影的梦。同样，那也曾是阿尔夫莱多的梦。阿尔夫莱多知道自己再没有圆梦的">
-<meta name="keywords" content="电影">
+  <title>Golang 错误处理 | Abulo</title>
+  <meta name="description" content="Golang 错误处理 err 变量 error 接口 panic recover 、defer  0. err在 Golang 中如果需要进行错误处理，一般都默认函数的最后一个返回值是 err。 比如： 123func example(arg int) (int, error) &amp;#123;    return arg + 1, nil&amp;#125; 再比如看内置读取文件的ioutil.ReadA">
+<meta name="keywords" content="Golang 错误处理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="昨天的影院才是天堂影院">
-<meta property="og:url" content="http://abulo.github.io/2009/03/20/昨天的影院才是天堂影院/index.html">
+<meta property="og:title" content="Golang 错误处理">
+<meta property="og:url" content="http://abulo.github.io/2019/05/16/Golang-错误处理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="这是一场关于梦想的电影往事。    二战时期的意大利西西里岛，既流传着一段美丽传说，也孕育着这么一个孩子的梦想：关于理想，关于友情，关于爱情，关于亲情。 电影梦    这个梦想是多多的，也是阿尔夫莱多的，更是朱塞佩·托纳托雷的。我不敢妄称多多就是朱塞佩·托纳托雷童年的幻像，但我知道朱塞佩·托纳托雷肯定也曾做过多多类似的梦——关于电影的梦。同样，那也曾是阿尔夫莱多的梦。阿尔夫莱多知道自己再没有圆梦的">
+<meta property="og:description" content="Golang 错误处理 err 变量 error 接口 panic recover 、defer  0. err在 Golang 中如果需要进行错误处理，一般都默认函数的最后一个返回值是 err。 比如： 123func example(arg int) (int, error) &amp;#123;    return arg + 1, nil&amp;#125; 再比如看内置读取文件的ioutil.ReadA">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-06T08:33:44.898Z">
+<meta property="og:updated_time" content="2019-05-16T01:20:21.128Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="昨天的影院才是天堂影院">
-<meta name="twitter:description" content="这是一场关于梦想的电影往事。    二战时期的意大利西西里岛，既流传着一段美丽传说，也孕育着这么一个孩子的梦想：关于理想，关于友情，关于爱情，关于亲情。 电影梦    这个梦想是多多的，也是阿尔夫莱多的，更是朱塞佩·托纳托雷的。我不敢妄称多多就是朱塞佩·托纳托雷童年的幻像，但我知道朱塞佩·托纳托雷肯定也曾做过多多类似的梦——关于电影的梦。同样，那也曾是阿尔夫莱多的梦。阿尔夫莱多知道自己再没有圆梦的">
+<meta name="twitter:title" content="Golang 错误处理">
+<meta name="twitter:description" content="Golang 错误处理 err 变量 error 接口 panic recover 、defer  0. err在 Golang 中如果需要进行错误处理，一般都默认函数的最后一个返回值是 err。 比如： 123func example(arg int) (int, error) &amp;#123;    return arg + 1, nil&amp;#125; 再比如看内置读取文件的ioutil.ReadA">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://abulo.github.io/2009/03/20/昨天的影院才是天堂影院/index.html">
+  <link rel="canonical" href="http://abulo.github.io/2019/05/16/Golang-错误处理/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -334,14 +334,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-昨天的影院才是天堂影院" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <article id="post-Golang-错误处理" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      昨天的影院才是天堂影院
+      Golang 错误处理
     </h1>
   
 
@@ -349,50 +349,65 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2009/03/20/昨天的影院才是天堂影院/" class="article-date">
-	  <time datetime="2009-03-20T01:45:00.000Z" itemprop="datePublished">2009-03-20</time>
+	<a href="/2019/05/16/Golang-错误处理/" class="article-date">
+	  <time datetime="2019-05-16T01:19:00.000Z" itemprop="datePublished">2019-05-16</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/影评/">影评</a>
+    <a class="article-category-link" href="/categories/golang/">golang</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/电影/">电影</a>
+	<a class="article-tag-link" href="/tags/Golang-错误处理/">Golang 错误处理</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2009/03/20/昨天的影院才是天堂影院/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/05/16/Golang-错误处理/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.1k(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 610(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>这是一场关于梦想的电影往事。</p>
-<p>   二战时期的意大利西西里岛，既流传着一段美丽传说，也孕育着这么一个孩子的梦想：关于理想，关于友情，关于爱情，关于亲情。</p>
-<p>电影梦</p>
-<p>   这个梦想是多多的，也是阿尔夫莱多的，更是朱塞佩·托纳托雷的。我不敢妄称多多就是朱塞佩·托纳托雷童年的幻像，但我知道朱塞佩·托纳托雷肯定也曾做过多多类似的梦——关于电影的梦。同样，那也曾是阿尔夫莱多的梦。阿尔夫莱多知道自己再没有圆梦的机会了，他要多多去圆梦，也是去圆他自己的梦。他不希望多多圆梦的途中会被打扰，会半途而废，甚至不惜于破坏多多与艾列娜的爱情来表示对梦想的虔诚，为多多画出这样一个美丽的梦境，将多多送了出去。他知道人在梦里是不能被打扰的，于是他在车站送行的时候狠狠的抓住多多：不准回来！不准想我们！不准回头！不准写信！不准妥协！忘了我们！</p>
-<p>友情梦</p>
-<p>   多多与阿尔夫莱多忘年的情谊，起源与古怪精灵的多多从阿尔夫莱多的放映室偷胶片开始。封建的神父作为影院的所有者，审片的态度一点也不马虎。胶片剪了又剪，多多的私藏也随着废弃胶片的增多而日益丰富，直至一天因胶片引发的意外火灾险些要了多多妹妹的命，阿尔夫莱多才意识到——这个小鬼原来有着和自己一样的梦，他要培养多多。但是阿尔夫莱多毕竟是成人，他知道多多不可能一辈子都做一名电影放映员，他告诉多多：“生活不是电影，生活比电影苦多了！”特别是在多多救了阿尔夫莱多的命之后，阿尔夫莱多更是将满心的希望都寄托在了多多的身上，他不仅像朋友，更像是父亲般的关爱着多多。最后当多多独自坐在影院欣赏阿尔夫莱多留给自己的遗物时，银幕上还能找到失落的东西，以作回忆的凭据，不免徒生无可奈何花落去的怅惘。</p>
-<p>爱情梦</p>
-<p>   和大多数青春期男孩一样，多多邂逅了美丽的艾列娜，唠下了朝思夜想的心病。随后，寻着阿尔夫莱多故事中士兵足迹的多多，终于用毅力换来了艾列娜的爱情。可是在那样复杂的年代，怎么可能静的下心来谈爱情？何况多多还背负着阿尔夫莱多的电影梦。三十年后多多重归故里，慕然回首，看见梦中人伫立街头，斑斑银发随风飘舞，怎一个感伤了得。当天晚上，这对有情人终于圆了自己三十年前的梦。第二天多多要离开了，挂电话给艾列娜，刚要设想幸福的将来，却被艾列娜打住： “不，没有将来了，只有过去，昨晚只是一场梦而已，一个美好的梦。是我们小时候没实现的梦。。。我想，没有比这样更好的结局了。”</p>
-<p>亲情梦</p>
-<p>   影片的开始就是多多的母亲在给多多挂电话。三十年了，三十年多多都没有回来，没有回来一次看望自己的母亲和妹妹。这次阿尔夫莱多去世，多多应该回来了。餐桌上，多多为自己三十年来对家庭的不闻不问进行忏悔，母亲宽容的摇摇头：“我从未要求，你也无需解释。”接着母亲给多多讲了他小时侯关于门锁的故事，多多沉默不语。三十年了，妹妹对他觉得陌生了，而母亲的爱，却始终没有改变。多多知道，母亲在梦了都盼望着他会在某一天的晚上突然回来。</p>
-<p>   梦终会醒，可是电影要继续，生活也要继续。</p>
-<p>   电影就是将平淡无奇的镜头都剪去以后的人生。</p>
+        <h2 id="Golang-错误处理"><a href="#Golang-错误处理" class="headerlink" title="Golang 错误处理"></a>Golang 错误处理</h2><ul>
+<li>err 变量</li>
+<li>error 接口</li>
+<li>panic</li>
+<li>recover 、defer</li>
+</ul>
+<h3 id="0-err"><a href="#0-err" class="headerlink" title="0. err"></a>0. err</h3><p>在 Golang 中如果需要进行错误处理，一般都默认函数的最后一个返回值是 <code>err</code>。</p>
+<p>比如：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">example</span><span class="params">(arg <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>, error)</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> arg + <span class="number">1</span>, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再比如看内置读取文件的ioutil.ReadAll 的定义<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ReadAll</span><span class="params">(r io.Reader)</span> <span class="params">([]<span class="keyword">byte</span>, error)</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> readAll(r, bytes.MinRead)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看出，一般函数的最后一个返回值定义为 <code></code>err, 可以通过这个错误信息判断函数是否执行正确。</p>
+<h3 id="1-error-接口"><a href="#1-error-接口" class="headerlink" title="1. error 接口"></a>1. error 接口</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> error <span class="keyword">interface</span> &#123;</span><br><span class="line">    Error() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>内置 <code>errors</code> 包实现了这个接口：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> errors</span><br><span class="line"></span><br><span class="line"><span class="comment">// New returns an error that formats as the given text.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">(text <span class="keyword">string</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;errorString&#123;text&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// errorString is a trivial implementation of error.</span></span><br><span class="line"><span class="keyword">type</span> errorString <span class="keyword">struct</span> &#123;</span><br><span class="line">    s <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现了 error 接口的Error 方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *errorString)</span> <span class="title">Error</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> e.s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 带格式输出的 error </span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Errorf</span><span class="params">(format <span class="keyword">string</span>, a ...<span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> errors.New(Sprintf(format, a...))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以可以通过下面两种方法创建包含错误文本的 <code>error</code> 对象：</p>
+<ul>
+<li>errors.New</li>
+<li>fmt.Errorf 带格式化输出的 error 对象</li>
+</ul>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// errors.New</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">exampleReadAllError</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    _, err := ioutil.ReadAll(<span class="literal">nil</span>)</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// fmt.Errorf</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">exampleErrorf</span><span class="params">(arg <span class="keyword">int</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Errorf(<span class="string">"%d"</span>, arg)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-panic"><a href="#2-panic" class="headerlink" title="2. panic"></a>2. panic</h3><p>在 golang 中遇到错误，需要强制退出程序，可以使用 <code>panic</code> 。<code>panic</code> 接收的参数是任意类型。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">panic</span><span class="params">(v <span class="keyword">interface</span>&#123;&#125;)</span></span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">examplePanic</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">      examplePanic()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="built_in">panic</span>: <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">goroutine <span class="number">1</span> [running]:</span><br><span class="line">main.examplePanic()</span><br><span class="line">    C:/Users/abulo/<span class="keyword">go</span>/src/<span class="keyword">go</span>-example-<span class="keyword">for</span>-live/five_learning/main.<span class="keyword">go</span>:<span class="number">28</span> +<span class="number">0x3a</span></span><br><span class="line">main.main()</span><br><span class="line">    C:/Users/abulo/<span class="keyword">go</span>/src/<span class="keyword">go</span>-example-<span class="keyword">for</span>-live/five_learning/main.<span class="keyword">go</span>:<span class="number">37</span> +<span class="number">0x27</span></span><br></pre></td></tr></table></figure>
+<p>上文中调用 examplePanic 函数会抛出异常，直接终止程序的执行。<code>panic</code> 传入的参数是错误信息。比如上文 <code>nil</code></p>
+<p>除非你确定需要终止程序运行，否则不要使用 <code>panic</code></p>
+<h3 id="3-recover"><a href="#3-recover" class="headerlink" title="3. recover"></a>3. recover</h3><p><code>recover</code> 可以接收返回的异常信息，通常和 <code>defer</code> 一起使用。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">examplePanic</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(<span class="string">"123"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> err := <span class="built_in">recover</span>(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            fmt.Println(fmt.Sprintf(<span class="string">"recieve error: %s"</span>, err))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    examplePanic()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">recieve error: <span class="number">123</span></span><br></pre></td></tr></table></figure>
+<p>上文操作后，examplePanic 抛出的异常被 <code>recover</code> 接收到，再进行了后面的处理。上文执行就没有错误提示。</p>
+<p>当多个 <code>panic</code> 抛出异常是， <code>recover</code> 接收<strong><code>第一个</code></strong> <code>panic</code> 抛出的异常。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">func examplePanic() &#123;</span><br><span class="line">    panic(&quot;123&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func examplePanicOther() &#123;</span><br><span class="line">    panic(&quot;1234&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    defer func() &#123;</span><br><span class="line">        if err := recover(); err != nil &#123;</span><br><span class="line">            fmt.Println(fmt.Sprintf(&quot;recieve error: %v&quot;, err))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    examplePanic()</span><br><span class="line">    examplePanicOther()</span><br><span class="line">    examplePanic()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">recieve error: 123</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -402,7 +417,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://abulo.github.io/2009/03/20/昨天的影院才是天堂影院/" title="昨天的影院才是天堂影院" target="_blank" rel="external">http://abulo.github.io/2009/03/20/昨天的影院才是天堂影院/</a>
+      <a href="http://abulo.github.io/2019/05/16/Golang-错误处理/" title="Golang 错误处理" target="_blank" rel="external">http://abulo.github.io/2019/05/16/Golang-错误处理/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -450,13 +465,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2009/05/06/Python-DBUtils数据连接池与MySQL配合用法/" title="Python DBUtils数据连接池与MySQL配合用法"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2008/11/15/英雄和英雄/" title="英雄和英雄"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/05/10/Golang-结构体/" title="Golang 结构体"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
@@ -535,9 +546,9 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
     <script defer>
     var disqus_config = function () {
         
-            this.page.url = 'http://abulo.github.io/2009/03/20/昨天的影院才是天堂影院/';
+            this.page.url = 'http://abulo.github.io/2019/05/16/Golang-错误处理/';
         
-        this.page.identifier = '昨天的影院才是天堂影院';
+        this.page.identifier = 'Golang-错误处理';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
