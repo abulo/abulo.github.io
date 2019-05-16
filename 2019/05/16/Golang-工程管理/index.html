@@ -17,16 +17,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>归档: 2008/11 | Abulo</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://abulo.github.io/archives/2008/11/index.html">
+  <title>Golang 工程管理 | Abulo</title>
+  <meta name="description" content="Golang 工程管理Golang 语言的库区分内置库和第三方库。内置库，下载安装Golang 既可以使用，第三方库的使用，我们需要获取到本地，再使用。 包的导入和管理，讲述的是在Golang 里如何进行内置库的使用和第三方库的导入使用，管理则指的是在自己构建的工程里如何管理第三方库。 1. 工作空间GOPATH 即是项目的工程的目录GOROOT 即是go 源代码的目录 工作空间由：src、bin">
+<meta name="keywords" content="Golang 工程管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang 工程管理">
+<meta property="og:url" content="http://abulo.github.io/2019/05/16/Golang-工程管理/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Golang 工程管理Golang 语言的库区分内置库和第三方库。内置库，下载安装Golang 既可以使用，第三方库的使用，我们需要获取到本地，再使用。 包的导入和管理，讲述的是在Golang 里如何进行内置库的使用和第三方库的导入使用，管理则指的是在自己构建的工程里如何管理第三方库。 1. 工作空间GOPATH 即是项目的工程的目录GOROOT 即是go 源代码的目录 工作空间由：src、bin">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-16T01:32:52.594Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Golang 工程管理">
+<meta name="twitter:description" content="Golang 工程管理Golang 语言的库区分内置库和第三方库。内置库，下载安装Golang 既可以使用，第三方库的使用，我们需要获取到本地，再使用。 包的导入和管理，讲述的是在Golang 里如何进行内置库的使用和第三方库的导入使用，管理则指的是在自己构建的工程里如何管理第三方库。 1. 工作空间GOPATH 即是项目的工程的目录GOROOT 即是go 源代码的目录 工作空间由：src、bin">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://abulo.github.io/archives/2008/11/index.html">
+  <link rel="canonical" href="http://abulo.github.io/2019/05/16/Golang-工程管理/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -328,48 +333,167 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2008/11</h1>
-	      <p class="text-muted">共 1 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
-  
-  
+  <div class="content">
+  <article id="post-Golang-工程管理" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
-    
+    <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Golang 工程管理
+    </h1>
+  
+
       
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2008" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2008
-            </a>
-            <!-- <a href="/archives/2008" class="archive-year">2008</a> -->
-          </h3>
-        </div>
-        <div id="collapse2008" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2008">
-        <div class="panel-body">
-          <div class="collection">
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/05/16/Golang-工程管理/" class="article-date">
+	  <time datetime="2019-05-16T01:31:00.000Z" itemprop="datePublished">2019-05-16</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/golang/">golang</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Golang-工程管理/">Golang 工程管理</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/05/16/Golang-工程管理/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 975(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="Golang-工程管理"><a href="#Golang-工程管理" class="headerlink" title="Golang 工程管理"></a>Golang 工程管理</h2><p>Golang 语言的库区分内置库和第三方库。内置库，下载安装Golang 既可以使用，第三方库的使用，我们需要获取到本地，再使用。</p>
+<p>包的导入和管理，讲述的是在Golang 里如何进行内置库的使用和第三方库的导入使用，管理则指的是在自己构建的工程里如何管理第三方库。</p>
+<h3 id="1-工作空间"><a href="#1-工作空间" class="headerlink" title="1. 工作空间"></a>1. 工作空间</h3><p>GOPATH 即是项目的工程的目录<br>GOROOT 即是go 源代码的目录</p>
+<p>工作空间由：src、bin、pkg 三个目录组成。通常会把空间的目录设置为GOPATH。</p>
+<p>大致的目录结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">workspace</span><br><span class="line">   src</span><br><span class="line">       github.com</span><br><span class="line">       op</span><br><span class="line">   bin</span><br><span class="line">   pkg</span><br></pre></td></tr></table></figure>
+<p>我们一般关心的是 <code>src</code> 目录下的文件，包括：第三方库和自己创建的项目<br>我们需要创建目录就在GOPATH/src 下创建文件夹。</p>
+<h3 id="2-包导入"><a href="#2-包导入" class="headerlink" title="2. 包导入"></a>2. 包导入</h3><ul>
+<li>内置包导入</li>
+<li>第三方包的导入</li>
+</ul>
+<p>原则就是：在src 下的文件的路径<br>比如：导入内置包 fmt<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> fmt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">   fmt.Println(<span class="string">"hello world"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>比如：导入第三方库 cli<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"os"</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"github.com/urfave/cli"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    app := cli.NewApp()</span><br><span class="line">    app.Run(os.Args)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>表示：cli 源代码在：GOPATH/src/github.com/urfave/cli 路径下</p>
+<p>导入自己写的包：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"jianshu-go"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    jianshu.NewSpecialSubject(<span class="string">""</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>表示：jianshu-go 在 GOPATH/src/jianshu-go</p>
+<p><code>强调一点：golang 中，使用到的包需要导入，不使用的包导入，编译过程会报错。这一点和 python 很不一样。</code></p>
+<p>好，上文已经知道了包的导入：即以GOPATG/src 为基本路径导入完整路径即可。虽然 golang 也支持相对路径导入，但不建议。</p>
+<p>上文是一种包的默认导入方式。还存在下面几种：</p>
+<p>别名</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> name <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    name.Println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即：重新给包命别名，上文中 name 替换了默认的 fmt 名称</p>
+<p>省略包名</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> . <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    Println(<span class="string">"hello world"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即：省略包名，用点号省略包名。所以包内的函数、方法、结构体和变量等的使用直接写函数、方法、结构体、变量等的名称。</p>
+<p>只导入不使用<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> _ <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上文提到，golang 中导入的包需要使用。否则会报错。上文的例子，使用_ 表示只导入，而不使用。通常用于只是执行那个需要导入包的 init 函数。</p>
+<p>梳理下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import name &quot;fmt&quot;  # name.Println  别名方式</span><br><span class="line">import _ &quot;fmt&quot; # 只初始化目标包</span><br><span class="line">import . &quot;fmt&quot; # 省略包名</span><br><span class="line">import &quot;fmt&quot; # fmt.Println 原始包名+方法(函数)</span><br><span class="line">虽然存在几种方式。但是推荐使用默认方式：即原始包全路径的方式。其他方式，使用到的时候能更好的组织你的代码，那就用。否则不建议使用。</span><br></pre></td></tr></table></figure>
+<h3 id="3-包下载"><a href="#3-包下载" class="headerlink" title="3. 包下载"></a>3. 包下载</h3><p>使用 go 自带的 命令行工具<br>go get -u -v <strong>*</strong><br>go get 后面接的参数即是：github 或者其他托管网站的代码路径。</p>
+<p>下载的第三方库的默认路径是：GOPATH/src 路径</p>
+<p>###4. 包管理<br>通过上文，我们已经知道如何导入包、导入包的几种方式、第三方包的下载、下载包的存放路径等。</p>
+<p>那自己创建的项目中如何管理第三方包呢? 即：将用到的第三方包移至个人项目工程下。<br><code>govendor</code> 。<br>虽然存在多种包的管理方式。但我觉得现在的这种方式挺友好的。<br>下载<br><code>go get -u github.com/kardianos/govendor</code></p>
+<p>govendor init<br>这一步触发的动作是创建：vendor 目录 和 vendor.json 文件</p>
+<p>govendor add +external<br>这一步触发的动作是：将自己项目中使用到的第三方库，复制到vendor 目录下，并维护vendor.json文件</p>
+<p>go 的工作空间的文件系统组成<br>go 中包的导入方式<br>go 中第三方包的管理</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://abulo.github.io/2019/05/16/Golang-工程管理/" title="Golang 工程管理" target="_blank" rel="external">http://abulo.github.io/2019/05/16/Golang-工程管理/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/abulo" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://www.gravatar.com/avatar/ec10d5d6b9a93caf62b7fb03105ff33e?s=128" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/abulo" target="_blank"><span class="text-dark">星期五</span><small class="ml-1x">Developer</small></a></h3>
+        <div>喜欢新事物,喜欢Codeing。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
     
     
-<a href="/2008/11/15/英雄和英雄/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2008-11-14T16:44:00.000Z" itemprop="datePublished">2008-11-15</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 英雄和英雄
-</a>
-
-
+    <li class="next">
+      <a href="/2019/05/16/Golang-错误处理/" title="Golang 错误处理"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
   
   
-    </div></div></div></section>
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
   
 
-	    </div>
-  	</article>
-  	 	
+
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
@@ -419,6 +543,29 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+
+
+
+
+   
+    
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://abulo.github.io/2019/05/16/Golang-工程管理/';
+        
+        this.page.identifier = 'Golang-工程管理';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'abulo' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 
 
 
